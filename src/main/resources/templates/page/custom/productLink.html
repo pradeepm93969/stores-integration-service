@@ -1,0 +1,172 @@
+<div id="page-title-value" class="hidden">
+	Product Link
+</div>
+
+<section class="animated bounceIn p-5 relative bg-slate-50 min-h-full">
+
+	<div th:replace="layouts/fragments/loader :: loader1"></div>
+	
+	<div class="create-productLink-modal-container hidden">
+		<div class="flex flex-col shadow-lg rounded-lg bg-slate-200 border-1">
+		  <div class="rounded-t bg-slate-300 text-slate-900 mb-0 px-6 py-3 text-base font-semibold">
+		    Create Product Link
+		  </div>
+	      <form name="createProductLinkForm" onsubmit="handleCreateProductLink();return false;" method="POST">
+	        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 m-5">
+	        	<div th:replace="layouts/fragments/formElements :: inputField(label='Web&nbsp;Sku&nbsp;Id', name='productId')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: inputField(label='Vendor&nbsp;Product&nbsp;Id', name='vendorProductId')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: inputField(label='Store&nbsp;Id', name='storeId')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: toggleButton(label='Enabled', name='enabled', id='enabled')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: inputField(label='List&nbsp;Price', name='listPrice')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: inputField(label='Sale&nbsp;Price', name='salePrice')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: inputNumberField(label='Inventory', name='inventory')"></div>
+			</div>
+	        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 m-5 mt-10">
+	        	<div class="md:hidden lg:flex"></div>
+	        	<div th:replace="layouts/fragments/formElements :: buttonPrimaryFull(name='Create')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: buttonSecondaryFull(name='Close', function='$(\'#mainPopup\').toggleClass(\'hidden\')')"></div>
+	        </div>
+	      </form>
+		</div>
+	</div>
+	
+	<div class="update-productLink-modal-container hidden">
+		<div class="flex flex-col shadow-lg rounded-lg bg-slate-200 border-1">
+		  <div class="rounded-t bg-slate-300 text-slate-900 mb-0 px-6 py-3 text-base font-semibold">
+		    Update Product Link
+		  </div>
+	      <form name="updateProductLinkForm" onsubmit="handleUpdateProductLink();return false;" method="POST">
+	        <input type="text" class="hidden" name="id"/>
+	        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 m-5">
+	        	<div th:replace="layouts/fragments/formElements :: inputField(label='Web&nbsp;Sku&nbsp;Id', name='productId')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: inputField(label='Vendor&nbsp;Product&nbsp;Id', name='vendorProductId')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: inputField(label='Store&nbsp;Id', name='storeId')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: toggleButton(label='Enabled', name='enabled', id='enabled')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: inputField(label='List&nbsp;Price', name='listPrice')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: inputField(label='Sale&nbsp;Price', name='salePrice')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: inputNumberField(label='Inventory', name='inventory')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: toggleButton(label='Processed', name='processed', id='processed')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: inputNumberField(label='Retry&nbsp;Count', name='retryCount')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: inputDateTimeField(label='Next&nbsp;Run&nbsp;At', name='nextRunAt')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: inputField(label='Api&nbsp;Error', name='apiError')"></div>
+	        </div>
+	        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 m-5 mt-10">
+	        	<div class="md:hidden lg:flex"></div>
+	        	<div th:replace="layouts/fragments/formElements :: buttonPrimaryFull(name='Update')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: buttonSecondaryFull(name='Close', function='$(\'#mainPopup\').toggleClass(\'hidden\')')"></div>
+	        </div>
+	      </form>
+		</div>
+	</div>
+	
+	<div class="flex flex-col min-w-0 w-full mb-6 shadow-lg rounded-lg bg-slate-200 border-1">
+	  <div class="rounded-t bg-slate-300 text-slate-900 mb-0 px-6 py-3 text-base font-semibold cursor-pointer" 
+	  	onclick="$('form[name=searchProductLinkForm]').toggleClass('hidden');$('form[name=uploadProductLinkForm]').toggleClass('hidden');">
+	    Product Link Management
+	  </div>
+      <form name="searchProductLinkForm" onsubmit="handleSearchProductLink();return false;" method="POST">
+        
+        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5">
+        	<div th:replace="layouts/fragments/formElements :: inputField(label='ID', name='id')"></div>
+        	<div th:replace="layouts/fragments/formElements :: inputField(label='Web&nbsp;Sku&nbsp;Id', name='productId')"></div>
+        	<div th:replace="layouts/fragments/formElements :: inputField(label='Vendor&nbsp;Product&nbsp;Id', name='vendorProductId')"></div>
+        	<div th:replace="layouts/fragments/formElements :: inputField(label='Store&nbsp;Id', name='storeId')"></div>
+        	<div th:replace="layouts/fragments/formElements :: selectBooleanField(label='Enabled', name='enabled')"></div>
+        	<div th:replace="layouts/fragments/formElements :: inputDateTimeField(label='CreatedAt-After', name='createdAtGt')"></div>
+        	<div th:replace="layouts/fragments/formElements :: inputDateTimeField(label='CreatedAt-Before', name='createdAtLt')"></div>
+        </div>
+        
+        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5 mt-10">
+        	<div></div>
+        	<div th:replace="layouts/fragments/formElements :: buttonPrimaryFull(name='Search')"></div>
+        	<div th:replace="layouts/fragments/formElements :: buttonSecondaryFull(name='Download CSV', function='handleDownloadProductLink()')"></div>
+        	<div th:replace="layouts/fragments/formElements :: buttonGreenFull(name='Add New', function='createProductLink()')"></div>
+        </div>
+        
+      </form>
+      
+      <form name="uploadProductLinkForm" onsubmit="handleUploadProductLink();return false;" enctype="multipart/form-data" method="POST">
+      	<div class="relative flex py-5 items-center mx-10">
+		    <div class="flex-grow border-t border-gray-400"></div>
+		    <span class="flex-shrink mx-4 text-slate-600">File Upload</span>
+		    <div class="flex-grow border-t border-gray-400"></div>
+	    </div>
+        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5">
+        	<div></div>
+        	<div th:replace="layouts/fragments/formElements :: inputRequiredFileField(label='', name='file')"></div>
+        	<div class="mt-2">
+        		<div th:replace="layouts/fragments/formElements :: buttonPrimaryFull(name='Upload')" ></div>
+        	</div>
+        </div>
+      </form>
+	</div>
+	
+	<div id="productLinkTableSection" class="flex flex-col min-w-0 w-full mb-6 shadow-lg rounded-lg bg-slate-200 border-1 hidden">
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5 mt-10 overflow-x-auto">
+			<table class="table table-auto border-collapse border border-slate-400">
+				<thead>
+					<tr>
+						<th><input type="checkbox" class="cursor-pointer" id="selectAll" onclick="$('td input:checkbox',$(this).closest('table')).prop('checked',this.checked);" /></th>
+						<th>Action</th>
+						<th>Id</th>
+						<th>Web Sku Id</th>
+						<th>Vendor Product Id</th>
+						<th>Store Id</th>
+						<th>Enabled</th>
+						<th>List Price</th>
+						<th>Sale Price</th>
+						<th>Inventory</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="flex items-center justify-center flex-row mb-3 mx-6">
+		
+			<div class="mr-auto">
+				<div class="text-slate-600 text-sm font-semibold mb-1 ml-1">Page Size</div>
+				<select name="pageSize" id="pageSize" onchange="$('#pageNo').text(1);handleSearchProductLink();" 
+					class="px-2 py-1.5 rounded text-sm border-0 shadow-lg focus:ring w-16">
+				  <option value="10">10</option>
+				  <option value="25">25</option>
+				  <option value="50">50</option>
+				  <option value="100">100</option>
+				  <option value="250">250</option>
+				</select>
+			</div>
+			
+			<div></div>
+			
+			<div class="text-slate-600 text-sm font-semibold mr-3">
+				showing <span id="startIndex"></span> to <span id="endIndex"></span> of <span id="totalCount"></span> entries
+			</div>
+					
+			<div id="pagiation" class="flex flex-row">
+				<button id="pag-first" type="button" class="bg-secondary-500 hover:bg-secondary-400 text-white text-md font-bold py-2 px-4 border-b-4 
+					border-secondary-700 hover:border-secondary-500 rounded-lg mx-0.5" onclick="$('#pageNo').text($(this).text());handleSearchProductLink();">
+					<i class="fas fa-angle-double-left"></i>
+					<span id="pag-first-value" class="hidden">1</span>
+				</button>
+				<button id="prev-2" type="button" class="bg-secondary-500 hover:bg-secondary-400 text-white text-md font-bold py-2 px-4 border-b-4 
+					border-secondary-700 hover:border-secondary-500 rounded-lg mx-0.5 hidden" onclick="$('#pageNo').text($(this).text());handleSearchProductLink();">-</button>
+				<button id="prev-1" type="button" class="bg-secondary-500 hover:bg-secondary-400 text-white text-md font-bold py-2 px-4 border-b-4 
+					border-secondary-700 hover:border-secondary-500 rounded-lg mx-0.5 hidden" onclick="$('#pageNo').text($(this).text());handleSearchProductLink();">-</button>
+				<button id="pageNo" type="button" class="bg-primary-500 hover:bg-primary-400 text-white text-md font-bold py-2 px-4 border-b-4 
+					border-primary-700 hover:border-primary-500 rounded-lg mx-0.5 shadow-none" onclick="function a() {}">1</button>
+				<button id="next-1" type="button" class="bg-secondary-500 hover:bg-secondary-400 text-white text-md font-bold py-2 px-4 border-b-4 
+					border-secondary-700 hover:border-secondary-500 rounded-lg mx-0.5 hidden " onclick="$('#pageNo').text($(this).text());handleSearchProductLink();">-</button>
+				<button id="next-2" type="button" class="bg-secondary-500 hover:bg-secondary-400 text-white text-md font-bold py-2 px-4 border-b-4 
+					border-secondary-700 hover:border-secondary-500 rounded-lg mx-0.5 hidden" onclick="$('#pageNo').text($(this).text());handleSearchProductLink();">-</button>
+				<button id="pag-last" type="button" class="bg-secondary-500 hover:bg-secondary-400 text-white text-md font-bold py-2 px-4 border-b-4 
+					border-secondary-700 hover:border-secondary-500 rounded-lg mx-0.5" onclick="$('#pageNo').text($(this).find('#pag-last-value').text());handleSearchProductLink();">
+					<i class="fas fa-angle-double-right"></i>
+					<span id="pag-last-value" class="hidden">1</span>
+				</button>
+			</div>
+			
+		</div>
+	</div>
+</section>

@@ -1,0 +1,48 @@
+<div id="page-title-value" class="hidden">
+	Login Page
+</div>
+
+<section class="animated bounceIn py-6 lg:py-7 w-full md:w-1/2 lg:w-1/3">
+
+	<div th:replace="layouts/fragments/loader :: loader"></div>
+
+	<div id="logged-in-message" class="hidden text-center mb-12 pb-3">
+		<div class="flex justify-center items-center my-2 text-lg font-semibold">
+			Welcome back..&nbsp;<span id="loginFirstName"></span>
+		</div>
+		<p class="text-base m-0">Sign in to your account to continue</p>
+		<br>
+	</div>
+	
+	<div class="rounded shadow-lg p-5 m-2 bg-slate-200">
+		<div class="text-center flex justify-center items-center">
+			<img id="loginAvatar" class="flex justify-center items-center hidden rounded-full absolute h-28 m-0 mb-10 ring-1 ring-primary" src="img/profileAvatars/Male-1.jpg"></img>
+		</div>
+		
+		<div id="non-logged-in-message" class="flex justify-center items-center hidden mt-2 flex-col">
+			<div class="text-lg">Welcome... </div></br>
+			<div class="text-base m-0">Sign in to your account to continue</div>
+		</div>
+		
+		<form id="loginForm" name="loginForm" class="mt-8 pt-2" onsubmit="handleLogin();return false;" method="POST">
+			<input type="hidden" name="grantType" value="password"/>
+			
+			<div class="grid gap-3 grid-cols-1 m-5">
+				<div th:replace="layouts/fragments/formElements :: inputEmailOrPhoneField"></div>
+				
+				<div th:replace="layouts/fragments/formElements :: inputPasswordField(label='Password', name='password')"></div>
+		
+				<div class="mt-2">
+					<div th:replace="layouts/fragments/formElements :: buttonPrimaryFull(name='Login')"></div>
+				</div>
+			</div>
+		</form>
+		
+		<div class="mb-3 text-center">
+			<a onclick="loadPage('/public/forgotPassword')" class="no-underline cursor-pointer text-primary-500 font-bold"> 
+				Forgot Password?
+			</a>
+		</div>
+	</div>
+	
+</section>

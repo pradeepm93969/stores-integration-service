@@ -1,0 +1,235 @@
+<div id="page-title-value" class="hidden">
+	Store Management
+</div>
+
+<section class="animated bounceIn p-5 relative bg-slate-50 min-h-full">
+
+	<div th:replace="layouts/fragments/loader :: loader1"></div>
+	
+	<div class="create-store-modal-container hidden">
+		<div class="flex flex-col shadow-lg rounded-lg bg-slate-200 border-1">
+		  <div class="rounded-t bg-slate-300 text-slate-900 mb-0 px-6 py-3 text-base font-semibold">
+		    Create Store
+		  </div>
+	      <form name="createStoreForm" onsubmit="handleCreateStore();return false;" method="POST">
+	        
+	        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 m-5">
+	        	<div th:replace="layouts/fragments/formElements :: inputField(label='ID&nbsp;(Web&nbsp;Store&nbsp;Id)', name='id')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: inputField(label='Web&nbsp;Store&nbsp;Name', name='name')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: toggleButton(label='Enabled', name='enabled', id='enabled')"></div>
+			</div>
+			<div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 m-5">
+				<div>
+					<div class="text-slate-600 text-sm font-semibold mb-1 ml-1">Integration Type</div>
+					<select name="vendorName" class="px-2 py-1.5 rounded text-sm border-0 
+						shadow-lg focus:ring w-full">
+					  <option value="LUMENSOFT">LUMENSOFT</option>
+					</select>
+				</div>
+	        	<div th:replace="layouts/fragments/formElements :: inputField(label='Integration&nbsp;Store&nbsp;Id', name='vendorStoreId')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: inputField(label='Host', name='host')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: inputField(label='Username', name='username')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: inputField(label='Password', name='password')"></div>
+			</div>
+			<div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 m-5">
+	        	<div th:replace="layouts/fragments/formElements :: toggleButton(label='Product Price Sync Enabled', name='productPriceSyncEnabled', id='productPriceSyncEnabled')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: toggleButton(label='Inventory Sync Enabled', name='inventorySyncEnabled', id='inventorySyncEnabled')"></div>
+	        </div>
+	        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 m-5 mt-10">
+	        	<div class="md:hidden lg:flex"></div>
+	        	<div th:replace="layouts/fragments/formElements :: buttonPrimaryFull(name='Create')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: buttonSecondaryFull(name='Close', function='$(\'#mainPopup\').toggleClass(\'hidden\')')"></div>
+	        </div>
+	        
+	      </form>
+		</div>
+	</div>
+	
+	<div class="update-store-modal-container hidden">
+		<div class="flex flex-col shadow-lg rounded-lg bg-slate-200 border-1">
+		  <div class="rounded-t bg-slate-300 text-slate-900 mb-0 px-6 py-3 text-base font-semibold">
+		    Update Store
+		  </div>
+	      <form name="updateStoreForm" onsubmit="handleUpdateStore();return false;" method="POST">
+	        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 m-5">
+	        	<div th:replace="layouts/fragments/formElements :: inputField(label='ID&nbsp;(Web&nbsp;Store&nbsp;Id)', name='id')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: inputField(label='Web&nbsp;Store&nbsp;Name', name='name')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: toggleButton(label='Enabled', name='enabled', id='enabled')"></div>
+			</div>
+			<div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 m-5">
+				<div>
+					<div class="text-slate-600 text-sm font-semibold mb-1 ml-1">Integration Type</div>
+					<select name="vendorName" class="px-2 py-1.5 rounded text-sm border-0 
+						shadow-lg focus:ring w-full">
+					  <option value="LUMENSOFT">LUMENSOFT</option>
+					</select>
+				</div>
+	        	<div th:replace="layouts/fragments/formElements :: inputField(label='Integration&nbsp;Store&nbsp;Id', name='vendorStoreId')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: inputField(label='Host', name='host')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: inputField(label='Username', name='username')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: inputField(label='Password', name='password')"></div>
+			</div>
+			<div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 m-5 mt-10">
+	        	<div th:replace="layouts/fragments/formElements :: toggleButton(label='Product Price Sync Enabled', name='productPriceSyncEnabled', id='productPriceSyncEnabled')"></div>
+	        	<div>
+					<div class="text-slate-600 text-sm font-semibold mb-1 ml-1">Product Price Sync Status</div>
+					<select name="productPriceSyncStatus" class="px-2 py-1.5 rounded text-sm border-0 
+						shadow-lg focus:ring w-full">
+					  <option value="NOT_RUNNING">NOT_RUNNING</option>
+					  <option value="RUNNING">RUNNING</option>
+					  <option value="FAILED">FAILED</option>
+					</select>
+				</div>
+				<div th:replace="layouts/fragments/formElements :: inputDateTimeField(label='Last&nbsp;Product&nbsp;Price&nbsp;Sync&nbsp;At', name='lastProductPriceSyncAt')"></div>
+	        </div>
+	        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 m-5 mt-10">
+	        	<div th:replace="layouts/fragments/formElements :: toggleButton(label='Inventory Sync Enabled', name='inventorySyncEnabled', id='inventorySyncEnabled')"></div>
+	        	<div>
+					<div class="text-slate-600 text-sm font-semibold mb-1 ml-1">Inventory Sync Status</div>
+					<select name="inventorySyncStatus" class="px-2 py-1.5 rounded text-sm border-0 
+						shadow-lg focus:ring w-full">
+					  <option value="NOT_RUNNING">NOT_RUNNING</option>
+					  <option value="RUNNING">RUNNING</option>
+					  <option value="FAILED">FAILED</option>
+					</select>
+				</div>
+				<div th:replace="layouts/fragments/formElements :: inputDateTimeField(label='Last&nbsp;Inventory&nbsp;Sync&nbsp;At', name='lastInventorySyncAt')"></div>
+	        </div>
+	        
+	        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 m-5 mt-10">
+	        	<div class="md:hidden lg:flex"></div>
+	        	<div th:replace="layouts/fragments/formElements :: buttonPrimaryFull(name='Update')"></div>
+	        	<div th:replace="layouts/fragments/formElements :: buttonSecondaryFull(name='Close', function='$(\'#mainPopup\').toggleClass(\'hidden\')')"></div>
+	        </div>
+	        
+	      </form>
+		</div>
+	</div>
+	
+	<div class="flex flex-col min-w-0 w-full mb-6 shadow-lg rounded-lg bg-slate-200 border-1">
+	  <div class="rounded-t bg-slate-300 text-slate-900 mb-0 px-6 py-3 text-base font-semibold cursor-pointer" 
+	  	onclick="$('form[name=searchStoreForm]').toggleClass('hidden');">
+	    Store Management
+	  </div>
+      <form name="searchStoreForm" onsubmit="handleSearchStore();return false;" method="POST">
+        
+        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5">
+        	<div th:replace="layouts/fragments/formElements :: inputField(label='ID&nbsp;(Web&nbsp;Store&nbsp;Id)', name='id')"></div>
+        	<div th:replace="layouts/fragments/formElements :: inputField(label='Web&nbsp;Store&nbsp;Name', name='name')"></div>
+        	<div th:replace="layouts/fragments/formElements :: selectBooleanField(label='Enabled', name='enabled')"></div>
+        	<div>
+				<div class="text-slate-600 text-sm font-semibold mb-1 ml-1">Integration Type</div>
+				<select name="vendorName" class="px-2 py-1.5 rounded text-sm border-0 
+					shadow-lg focus:ring w-full">
+				  <option value="">ANY</option>
+				  <option value="LUMENSOFT">LUMENSOFT</option>
+				</select>
+			</div>
+        	<div th:replace="layouts/fragments/formElements :: inputField(label='Integration&nbsp;Store&nbsp;Id', name='vendorStoreId')"></div>
+        	<div th:replace="layouts/fragments/formElements :: selectBooleanField(label='Product&nbsp;Price&nbsp;Sync&nbsp;Enabled', name='productSyncEnabled')"></div>
+        	<div th:replace="layouts/fragments/formElements :: selectBooleanField(label='Inventory&nbsp;Sync&nbsp;Enabled', name='inventorySyncEnabled')"></div>
+        </div>
+        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5">
+        	<div th:replace="layouts/fragments/formElements :: inputDateTimeField(label='CreatedAt-After', name='createdAtGt')"></div>
+        	<div th:replace="layouts/fragments/formElements :: inputDateTimeField(label='CreatedAt-Before', name='createdAtLt')"></div>
+        </div>
+        
+        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5 mt-10">
+        	<div></div>
+        	<div th:replace="layouts/fragments/formElements :: buttonPrimaryFull(name='Search')"></div>
+        	<div th:replace="layouts/fragments/formElements :: buttonSecondaryFull(name='Download CSV', function='handleDownloadStore()')"></div>
+        	<div th:replace="layouts/fragments/formElements :: buttonGreenFull(name='Add New', function='createStore()')"></div>
+        </div>
+        
+      </form>
+	</div>
+	
+	<div id="storeTableSection" class="flex flex-col min-w-0 w-full mb-6 shadow-lg rounded-lg bg-slate-200 border-1 hidden">
+		<form name="tableActionForm" onsubmit="handleTableAction();return false;" method="POST">
+			<div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5">
+				<select name="actionName" id="actionName" class="px-2 py-1.5 rounded-l-lg text-sm border-0 shadow-lg focus:ring w-full">
+				  <option value="">-- Select Bulk Action --</option>
+				  <option value="syncPrice">Sync Price</option>
+				  <option value="syncInventory">Sync Inventory</option>
+				</select>
+				<button type="submit" class="bg-primary-600 hover:bg-primary-500 text-white text-md font-extrabold py-1 px-2 border-b-4 
+					border-primary-800 hover:border-primary-700 rounded-r-lg mr-1 w-20">
+					<i class="fa-solid fa-angles-right"></i>
+				</button>
+			</div>
+		</form>
+	
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5 overflow-x-auto">
+			<table class="table table-auto border-collapse border border-slate-400">
+				<thead>
+					<tr>
+						<th><input type="checkbox" class="cursor-pointer" id="selectAll" onclick="$('td input:checkbox',$(this).closest('table')).prop('checked',this.checked);" /></th>
+						<th>Action</th>
+						<th>Web Store Id</th>
+						<th>Web Store Name</th>
+						<th>Enabled</th>
+						<th>Integration Type</th>
+						<th>Integration Store Id</th>
+						<th>Host</th>
+						<th>Username</th>
+						<th>Password</th>
+						<th>Product Price Sync Enabled</th>
+						<th>Product Price Sync Status</th>
+						<th>Last Product Price Sync At</th>
+						<th>Inventory Sync Enabled</th>
+						<th>Inventory Sync Status</th>
+						<th>Last Inventory Sync At</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="flex items-center justify-center flex-row mb-3 mx-6">
+		
+			<div class="mr-auto">
+				<div class="text-slate-600 text-sm font-semibold mb-1 ml-1">Page Size</div>
+				<select name="pageSize" id="pageSize" onchange="$('#pageNo').text(1);handleSearchStore();" 
+					class="px-2 py-1.5 rounded text-sm border-0 shadow-lg focus:ring w-16">
+				  <option value="10">10</option>
+				  <option value="25">25</option>
+				  <option value="50">50</option>
+				  <option value="100">100</option>
+				  <option value="250">250</option>
+				</select>
+			</div>
+			
+			<div></div>
+			
+			<div class="text-slate-600 text-sm font-semibold mr-3">
+				showing <span id="startIndex"></span> to <span id="endIndex"></span> of <span id="totalCount"></span> entries
+			</div>
+					
+			<div id="pagiation" class="flex flex-row">
+				<button id="pag-first" type="button" class="bg-secondary-500 hover:bg-secondary-400 text-white text-md font-bold py-2 px-4 border-b-4 
+					border-secondary-700 hover:border-secondary-500 rounded-lg mx-0.5" onclick="$('#pageNo').text($(this).text());handleSearchStore();">
+					<i class="fas fa-angle-double-left"></i>
+					<span id="pag-first-value" class="hidden">1</span>
+				</button>
+				<button id="prev-2" type="button" class="bg-secondary-500 hover:bg-secondary-400 text-white text-md font-bold py-2 px-4 border-b-4 
+					border-secondary-700 hover:border-secondary-500 rounded-lg mx-0.5 hidden" onclick="$('#pageNo').text($(this).text());handleSearchStore();">-</button>
+				<button id="prev-1" type="button" class="bg-secondary-500 hover:bg-secondary-400 text-white text-md font-bold py-2 px-4 border-b-4 
+					border-secondary-700 hover:border-secondary-500 rounded-lg mx-0.5 hidden" onclick="$('#pageNo').text($(this).text());handleSearchStore();">-</button>
+				<button id="pageNo" type="button" class="bg-primary-500 hover:bg-primary-400 text-white text-md font-bold py-2 px-4 border-b-4 
+					border-primary-700 hover:border-primary-500 rounded-lg mx-0.5 shadow-none" onclick="function a() {}">1</button>
+				<button id="next-1" type="button" class="bg-secondary-500 hover:bg-secondary-400 text-white text-md font-bold py-2 px-4 border-b-4 
+					border-secondary-700 hover:border-secondary-500 rounded-lg mx-0.5 hidden " onclick="$('#pageNo').text($(this).text());handleSearchStore();">-</button>
+				<button id="next-2" type="button" class="bg-secondary-500 hover:bg-secondary-400 text-white text-md font-bold py-2 px-4 border-b-4 
+					border-secondary-700 hover:border-secondary-500 rounded-lg mx-0.5 hidden" onclick="$('#pageNo').text($(this).text());handleSearchStore();">-</button>
+				<button id="pag-last" type="button" class="bg-secondary-500 hover:bg-secondary-400 text-white text-md font-bold py-2 px-4 border-b-4 
+					border-secondary-700 hover:border-secondary-500 rounded-lg mx-0.5" onclick="$('#pageNo').text($(this).find('#pag-last-value').text());handleSearchStore();">
+					<i class="fas fa-angle-double-right"></i>
+					<span id="pag-last-value" class="hidden">1</span>
+				</button>
+			</div>
+			
+		</div>
+	</div>
+</section>

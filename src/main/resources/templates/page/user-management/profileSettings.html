@@ -1,0 +1,71 @@
+<div id="page-title-value" class="hidden">
+	Profile Settings
+</div>
+
+<section class="animated bounceIn p-5 relative bg-slate-50 min-h-full flex justify-center ">
+	
+	<div class="choose-avatar-container hidden">
+		<div class="flex flex-col shadow-lg rounded-lg bg-slate-200 border-1">
+		  <div class="rounded-t bg-slate-300 text-slate-900 mb-0 px-6 py-3 text-base font-semibold">
+		    Choose Avatar
+		  </div>
+		  <div class="grid gap-3 grid-cols-2 m-5">
+		  	<div class="grid gap-3 grid-cols-1 md:grid-cols-4 m-5">
+		  		<div onclick="changeAvatarImage(this);"><img class="rounded-full h-20 ring-1 ring-primary cursor-pointer" src="img/profileAvatars/Male-1.jpg" ></img></div>
+				<div onclick="changeAvatarImage(this);"><img class="rounded-full h-20 ring-1 ring-primary cursor-pointer" src="img/profileAvatars/Male-2.jpg"></img></div>
+				<div onclick="changeAvatarImage(this);"><img class="rounded-full h-20 ring-1 ring-primary cursor-pointer" src="img/profileAvatars/Male-3.jpg"></img></div>
+				<div onclick="changeAvatarImage(this);"><img class="rounded-full h-20 ring-1 ring-primary cursor-pointer" src="img/profileAvatars/Male-4.jpg"></img></div>
+				<div onclick="changeAvatarImage(this);"><img class="rounded-full h-20 ring-1 ring-primary cursor-pointer" src="img/profileAvatars/Male-5.jpg"></img></div>
+				<div onclick="changeAvatarImage(this);"><img class="rounded-full h-20 ring-1 ring-primary cursor-pointer" src="img/profileAvatars/Male-6.jpg"></img></div>
+				<div onclick="changeAvatarImage(this);"><img class="rounded-full h-20 ring-1 ring-primary cursor-pointer" src="img/profileAvatars/Male-7.jpg"></img></div>
+				<div onclick="changeAvatarImage(this);"><img class="rounded-full h-20 ring-1 ring-primary cursor-pointer" src="img/profileAvatars/Male-8.jpg"></img></div>
+				<div onclick="changeAvatarImage(this);"><img class="rounded-full h-20 ring-1 ring-primary cursor-pointer" src="img/profileAvatars/Male-9.jpg"></img></div>
+				<div onclick="changeAvatarImage(this);"><img class="rounded-full h-20 ring-1 ring-primary cursor-pointer" src="img/profileAvatars/Male-10.jpg"></img></div>
+				<div onclick="changeAvatarImage(this);"><img class="rounded-full h-20 ring-1 ring-primary cursor-pointer" src="img/profileAvatars/Male-11.jpg"></img></div>
+		  	</div>
+		  	<div class="grid gap-3 grid-cols-1 md:grid-cols-4 m-5">
+		  		<div onclick="changeAvatarImage(this);"><img class="rounded-full h-20 ring-1 ring-primary cursor-pointer" src="img/profileAvatars/Female-1.jpg"></img></div>
+				<div onclick="changeAvatarImage(this);"><img class="rounded-full h-20 ring-1 ring-primary cursor-pointer" src="img/profileAvatars/Female-2.jpg"></img></div>
+				<div onclick="changeAvatarImage(this);"><img class="rounded-full h-20 ring-1 ring-primary cursor-pointer" src="img/profileAvatars/Female-3.jpg"></img></div>
+				<div onclick="changeAvatarImage(this);"><img class="rounded-full h-20 ring-1 ring-primary cursor-pointer" src="img/profileAvatars/Female-4.jpg"></img></div>
+				<div onclick="changeAvatarImage(this);"><img class="rounded-full h-20 ring-1 ring-primary cursor-pointer" src="img/profileAvatars/Female-5.jpg"></img></div>
+				<div onclick="changeAvatarImage(this);"><img class="rounded-full h-20 ring-1 ring-primary cursor-pointer" src="img/profileAvatars/Female-6.jpg"></img></div>
+				<div onclick="changeAvatarImage(this);"><img class="rounded-full h-20 ring-1 ring-primary cursor-pointer" src="img/profileAvatars/Female-7.jpg"></img></div>
+				<div onclick="changeAvatarImage(this);"><img class="rounded-full h-20 ring-1 ring-primary cursor-pointer" src="img/profileAvatars/Female-8.jpg"></img></div>
+				<div onclick="changeAvatarImage(this);"><img class="rounded-full h-20 ring-1 ring-primary cursor-pointer" src="img/profileAvatars/Female-9.jpg"></img></div>
+		  	</div>
+		  </div>
+		  <div class="grid gap-3 grid-cols-3 m-5">
+		  	<div class="hidden md:flex"></div>
+		  	<div th:replace="layouts/fragments/formElements :: buttonSecondaryFull(name='Close', function='$(\'#mainPopup\').toggleClass(\'hidden\')')"></div>
+		  </div>
+	   </div>
+	</div>
+
+	<div th:replace="layouts/fragments/loader :: loader1"></div>
+	
+	<div class="flex flex-col min-w-0 w-full md:w-1/2 mb-6 shadow-lg rounded-lg bg-slate-200 border-1">
+	  <div class="rounded-t bg-slate-300 text-slate-900 mb-0 px-6 py-3 text-base font-semibold">
+	    Profile Settings
+	  </div>
+      <form name="profileUpdateForm" id="profileUpdateForm" onsubmit="handleProfileUpdate();return false;" method="POST">
+      	<input type="hidden" name="avatarImage" id="avatarImage"/>
+        <div class="grid gap-3 grid-cols-1 md:grid-cols-2 m-5">
+        	<div class="grid gap-3 grid-cols-1 m-5">
+				<div th:replace="layouts/fragments/formElements :: inputField(label='First&nbsp;Name', name='firstName')"></div>
+				<div th:replace="layouts/fragments/formElements :: inputField(label='Last&nbsp;Name', name='lastName')"></div>
+        	</div>
+        	<div class="grid gap-3 grid-cols-1 m-5">
+				<div class="flex flex-col flex justify-center items-center mt-3">
+					<img id="chooseAvatar" class="rounded-full h-28 ring-1 ring-primary" src="img/profileAvatars/Male-1.jpg"></img>
+					<div th:replace="layouts/fragments/formElements :: buttonSecondaryFull(name='Choose', function='chooseAvatarImage()')"></div>
+				</div>
+        	</div>
+		</div>
+		<div class="grid gap-3 grid-cols-1 md:grid-cols-3 mx-10 mb-10">
+			<div th:replace="layouts/fragments/formElements :: buttonPrimaryFull(name='Save')"></div>
+		</div>
+      </form>
+	</div>
+	
+</section>

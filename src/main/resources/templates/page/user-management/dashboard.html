@@ -1,0 +1,147 @@
+<div id="page-title-value" class="hidden">
+	<span th:text="#{page.dashboard}"/>
+</div>
+
+<section class="animated bounceInTop p-5 relative bg-slate-50">
+	<div class="modal-container hidden"></div>
+
+	<div th:replace="layouts/fragments/loader :: loader1"></div>
+	
+	<div class="text-base text-secondary-500 font-bold">Dashboard</div>
+	
+	<div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 my-6">
+	
+		<div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden bg-white">
+            <div class="flex-auto p-4">
+              <div class="flex flex-wrap">
+                <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                  <h5 class="text-blueGray-400 uppercase font-bold text-xs">
+                    Stores Count
+                  </h5>
+                  <span class="font-semibold text-xl text-blueGray-700">
+                    -
+                  </span>
+                </div>
+                <div class="relative w-auto pl-4 flex-initial">
+                  <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-blue-500">
+                    <i class="fa-solid fa-chart-column text-2xl"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="text-sm text-blueGray-400 mt-4">
+                <span class="text-emerald-500 mr-2">
+                  <i class="fas fa-arrow-up"></i> 3.48%
+                </span>
+                <span class="whitespace-nowrap">
+                  Since last month
+                </span>
+              </p>
+            </div>
+        </div>
+
+		<div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden bg-white">
+            <div class="flex-auto p-4">
+              <div class="flex flex-wrap">
+                <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                  <h5 class="text-blueGray-400 uppercase font-bold text-xs">
+                    Successfully Sent
+                  </h5>
+                  <span class="font-semibold text-xl text-blueGray-700">
+                    -
+                  </span>
+                </div>
+                <div class="relative w-auto pl-4 flex-initial">
+                  <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-green-500">
+                    <i class="fa-solid fa-percent text-2xl"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="text-sm text-blueGray-400 mt-4">
+                <span class="text-emerald-500 mr-2">
+                  <i class="fas fa-arrow-up"></i> 0.00%
+                </span>
+                <span class="whitespace-nowrap">
+                  Since last month
+                </span>
+              </p>
+            </div>
+        </div>
+        
+        <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden bg-white">
+            <div class="flex-auto p-4">
+              <div class="flex flex-wrap">
+                <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                  <h5 class="text-blueGray-400 uppercase font-bold text-xs">
+                    Failed
+                  </h5>
+                  <span class="font-semibold text-xl text-blueGray-700">
+                    -
+                  </span>
+                </div>
+                <div class="relative w-auto pl-4 flex-initial">
+                  <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-red-500">
+                    <i class="fa-solid fa-skull text-2xl"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="text-sm text-blueGray-400 mt-4">
+                <span class="text-red-500 mr-2">
+                  <i class="fas fa-arrow-down"></i> 0.00%
+                </span>
+                <span class="whitespace-nowrap">
+                  Since last month
+                </span>
+              </p>
+            </div>
+        </div>
+        
+     </div>
+			
+	<div class="flex flex-wrap">
+        <div class="w-full xl:w-8/12 mb-12 xl:mb-0">
+          <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-secondary-700">
+            <div class="rounded-t mb-0 px-4 py-3 bg-transparent">
+              <div class="flex flex-wrap items-center">
+                <div class="relative w-full max-w-full flex-grow flex-1">
+                  <h6 class="uppercase text-slate-50 mb-1 text-xs font-semibold">
+                    Overview
+                  </h6>
+                  <h2 class="text-white text-xl font-semibold">
+                    SMS Requests
+                  </h2>
+                </div>
+              </div>
+            </div>
+            <div class="p-4 flex-auto">
+              <!-- Chart -->
+              <div class="relative h-350-px"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                <canvas id="line-chart" style="display: block; width: 611px; height: 350px;" width="611" height="350" class="chartjs-render-monitor"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full xl:w-4/12 px-4">
+          <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+            <div class="rounded-t mb-0 px-4 py-3 bg-transparent">
+              <div class="flex flex-wrap items-center">
+                <div class="relative w-full max-w-full flex-grow flex-1">
+                  <h6 class="uppercase text-blueGray-400 mb-1 text-xs font-semibold">
+                        Performance
+                      </h6>
+                      <h2 class="text-blueGray-700 text-xl font-semibold">
+                        Coming soon
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-4 flex-auto">
+                  <!-- Chart -->
+                  <div class="relative h-350-px"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                    <canvas id="bar-chart" width="274" height="350" style="display: block; width: 274px; height: 350px;" class="chartjs-render-monitor"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+       </div>
+	
+</section>

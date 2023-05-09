@@ -1,0 +1,135 @@
+<div id="page-title-value" class="hidden">
+	Integration Logs 
+</div>
+
+<section class="animated bounceIn p-5 relative bg-slate-50 min-h-full">
+
+	<div th:replace="layouts/fragments/loader :: loader1"></div>
+	
+	<div class="request-modal-container hidden">
+		<div class="flex flex-col shadow-lg rounded-lg bg-slate-200 border-1">
+		  <div class="rounded-t bg-slate-300 text-slate-900 mb-0 px-6 py-3 text-base font-semibold">
+		    Integration Log - Request
+		  </div>
+	      <div class="grid gap-6 grid-cols-1 m-5">
+	      	<div class="card-body p-3 bg-white"></div>
+	      </div>
+	        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 m-5 mt-10">
+	        	<div class="md:hidden lg:flex"></div>
+	        	<div th:replace="layouts/fragments/formElements :: buttonSecondaryFull(name='Close', function='$(\'#mainPopup\').toggleClass(\'hidden\')')"></div>
+	        </div>
+		</div>
+	</div>
+	
+	<div class="response-modal-container hidden">
+		<div class="flex flex-col shadow-lg rounded-lg bg-slate-200 border-1">
+		  <div class="rounded-t bg-slate-300 text-slate-900 mb-0 px-6 py-3 text-base font-semibold">
+		    Integration Log - Response
+		  </div>
+	      <div class="grid gap-6 grid-cols-1 m-5">
+	      	<div class="card-body p-3 bg-white"></div>
+	      </div>
+	        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 m-5 mt-10">
+	        	<div class="md:hidden lg:flex"></div>
+	        	<div th:replace="layouts/fragments/formElements :: buttonSecondaryFull(name='Close', function='$(\'#mainPopup\').toggleClass(\'hidden\')')"></div>
+	        </div>
+		</div>
+	</div>
+	
+	<div class="flex flex-col min-w-0 w-full mb-6 shadow-lg rounded-lg bg-slate-200 border-1">
+	  <div class="rounded-t bg-slate-300 text-slate-900 mb-0 px-6 py-3 text-base font-semibold">
+	    Integration Logs
+	  </div>
+      <form name="searchIntegrationLogForm" onsubmit="handleSearchIntegrationLog();return false;" method="POST">
+        
+        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5">
+        	<div th:replace="layouts/fragments/formElements :: inputField(label='Identifier', name='identifier')"></div>
+        	<div th:replace="layouts/fragments/formElements :: inputField(label='Sub&nbsp;Identifier', name='subIdentifier')"></div>
+        	<div th:replace="layouts/fragments/formElements :: inputField(label='Operation&nbsp;Type', name='operationType')"></div>
+        	<div th:replace="layouts/fragments/formElements :: inputField(label='System&nbsp;Name', name='systemName')"></div>
+        	<div th:replace="layouts/fragments/formElements :: inputDateTimeField(label='CreatedAt-After', name='createdAtGt')"></div>
+        	<div th:replace="layouts/fragments/formElements :: inputDateTimeField(label='CreatedAt-Before', name='createdAtLt')"></div>
+        </div>
+        
+        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5 mt-10">
+        	<div></div>
+        	<div class="hidden lg:flex"></div>
+        	<div class="hidden xl:flex"></div>
+        	<div th:replace="layouts/fragments/formElements :: buttonPrimaryFull(name='Search')"></div>
+        </div>
+        
+      </form>
+	</div>
+	
+	<div id="integrationLogTableSection" class="flex flex-col min-w-0 w-full mb-6 shadow-lg rounded-lg bg-slate-200 border-1 hidden">
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5 mt-10 overflow-x-auto">
+			<table class="table table-auto border-collapse border border-slate-400">
+				<thead>
+					<tr>
+						<th>Request</th>
+						<th>Response</th>
+						<th>Id</th>
+						<th>Created At</th>
+						<th>Identifier</th>
+						<th>Sub Identifier</th>
+						<th>Operation Type</th>
+						<th>System Name</th>
+						<th>URL</th>
+						<th>Method</th>
+						<th>Response Time</th>
+						<th>Response Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="flex items-center justify-center flex-row mb-3 mx-6">
+		
+			<div class="mr-auto">
+				<div class="text-slate-600 text-sm font-semibold mb-1 ml-1">Page Size</div>
+				<select name="pageSize" id="pageSize" onchange="$('#pageNo').text(1);handleSearchIntegrationLog();" 
+					class="px-2 py-1.5 rounded text-sm border-0 shadow-lg focus:ring w-16">
+				  <option value="10">10</option>
+				  <option value="25">25</option>
+				  <option value="50">50</option>
+				  <option value="100">100</option>
+				  <option value="250">250</option>
+				</select>
+			</div>
+			
+			<div></div>
+			
+			<div class="text-slate-600 text-sm font-semibold mr-3">
+				showing <span id="startIndex"></span> to <span id="endIndex"></span> of <span id="totalCount"></span> entries
+			</div>
+					
+			<div id="pagiation" class="flex flex-row">
+				<button id="pag-first" type="button" class="bg-secondary-500 hover:bg-secondary-400 text-white text-md font-bold py-2 px-4 border-b-4 
+					border-secondary-700 hover:border-secondary-500 rounded-lg mx-0.5" onclick="$('#pageNo').text($(this).text());handleSearchIntegrationLog();">
+					<i class="fas fa-angle-double-left"></i>
+					<span id="pag-first-value" class="hidden">1</span>
+				</button>
+				<button id="prev-2" type="button" class="bg-secondary-500 hover:bg-secondary-400 text-white text-md font-bold py-2 px-4 border-b-4 
+					border-secondary-700 hover:border-secondary-500 rounded-lg mx-0.5 hidden" onclick="$('#pageNo').text($(this).text());handleSearchIntegrationLog();">-</button>
+				<button id="prev-1" type="button" class="bg-secondary-500 hover:bg-secondary-400 text-white text-md font-bold py-2 px-4 border-b-4 
+					border-secondary-700 hover:border-secondary-500 rounded-lg mx-0.5 hidden" onclick="$('#pageNo').text($(this).text());handleSearchIntegrationLog();">-</button>
+				<button id="pageNo" type="button" class="bg-primary-500 hover:bg-primary-400 text-white text-md font-bold py-2 px-4 border-b-4 
+					border-primary-700 hover:border-primary-500 rounded-lg mx-0.5 shadow-none" onclick="function a() {}">1</button>
+				<button id="next-1" type="button" class="bg-secondary-500 hover:bg-secondary-400 text-white text-md font-bold py-2 px-4 border-b-4 
+					border-secondary-700 hover:border-secondary-500 rounded-lg mx-0.5 hidden " onclick="$('#pageNo').text($(this).text());handleSearchIntegrationLog();">-</button>
+				<button id="next-2" type="button" class="bg-secondary-500 hover:bg-secondary-400 text-white text-md font-bold py-2 px-4 border-b-4 
+					border-secondary-700 hover:border-secondary-500 rounded-lg mx-0.5 hidden" onclick="$('#pageNo').text($(this).text());handleSearchIntegrationLog();">-</button>
+				<button id="pag-last" type="button" class="bg-secondary-500 hover:bg-secondary-400 text-white text-md font-bold py-2 px-4 border-b-4 
+					border-secondary-700 hover:border-secondary-500 rounded-lg mx-0.5" onclick="$('#pageNo').text($(this).find('#pag-last-value').text());handleSearchIntegrationLog();">
+					<i class="fas fa-angle-double-right"></i>
+					<span id="pag-last-value" class="hidden">1</span>
+				</button>
+			</div>
+			
+		</div>
+	</div>
+
+</section>

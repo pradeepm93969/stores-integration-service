@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin Dashboard">
+	<meta name="author" content="Pradeep">
+	
+	<title></title>
+	
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+	
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
+    
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"> -->
+    
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+  </head>
+  <body>
+  	<!-- Javascript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.min.js"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js"></script>
+	<script th:src="@{/js/script.js}"></script>
+	<script th:src="@{/js/tailwind.config.js}"></script>
+	<script th:src="@{/js/IntlTelInput.js}"></script>
+	
+	<div id="main-title" class="hidden">Goli - Stores Integration Service | <span id="page-title"></span></div>
+  
+  	<div th:replace="layouts/fragments/loader :: loader"></div>
+  	
+	<div th:replace="layouts/fragments/popup :: alertPopup"></div>
+	<div th:replace="layouts/fragments/popup :: mainPopup"></div>
+	<div th:replace="layouts/fragments/popup :: deletePopup"></div>
+	
+  	<div class="flex flex-row">
+  		<div th:replace="layouts/fragments/sideBar :: side-bar"></div>
+  		
+  		<div class="flex flex-col flex-1">
+	  		<div th:replace="layouts/fragments/header :: header-logged-in"></div>
+	  		
+	  		<main id="page-wrapper" class="">
+			</main>
+			
+			<div th:replace="layouts/fragments/footer :: footer"></div>
+		</div>
+	</div>
+	
+	<script>
+		$(document).ready(function () {
+			if (window.location.hash !== "") {
+				loadPage(window.location.hash);
+			} else {
+				loadPage('/user-management/dashboard');
+			}
+		});
+	</script>
+	
+  </body>
+</html>

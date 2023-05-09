@@ -1,0 +1,54 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+<body>
+	<div th:fragment="intlTelInput" class="pl-2.5 border w-2/6">
+	    <input type="number" name="mobileNumberCountryCode" class="hidden" value="971"></input>
+	    <div id="intlTelInput" class="flex flex-row justify-center items-center border-0 px-2 cursor-pointer z-10 " onclick="$('#intlTelInputDropdown').toggleClass('hidden');">
+	    	<img class="pr-1" src="/img/flags/32/pk.png" /> 
+	    	+<span id="__countryCode" class="pr-1 text-md">92</span>
+	    	<i class="fas fa-caret-down inline"></i>
+	    </div>
+    	<ul id="intlTelInputDropdown" class="absolute shadow-lg border p-3 mb-5 rounded overflow-auto h-40 hidden bg-white mr-10 z-10">
+            
+         </ul>
+         <script>
+			$(document).click(function(e) {
+			    if (!$(e.target).closest('#intlTelInputDropdown').length && 
+			    		!$(e.target).closest('#intlTelInput').length) {
+			    	$('#intlTelInputDropdown').addClass('hidden');
+			    }
+			});
+			
+			
+			for (var i = 0; i < allCountries.length; i++) {
+			    var c = allCountries[i];
+			    if (i === 0) {
+					$("#intlTelInput img").attr('src','/img/flags/32/'+c.iso2+'.png');
+				    $("#__countryCode").html(c.dialCode);
+				    $("input[name=mobileNumberCountryCode]").val(c.dialCode);
+				}
+			    $("#intlTelInputDropdown").append('<li class="flex items-center mb-2 cursor-pointer hover:bg-slate-200" onclick="updateIntlTelInput(\'' +
+			    		c.iso2 + '\',\'' + c.dialCode + '\')">' + 
+			    		'<img class="inline" src="/img/flags/32/' + c.iso2 + '.png" />' +
+			    		'<span class="inline ml-2">' + '+' + c.dialCode + '</span>' +
+			    		'<span class="inline ml-4">' + c.name + '</span>' +
+			    		'</li>');
+			}
+			
+			function updateIntlTelInput(countryCode, mobileCode) {
+			    $("#intlTelInput img").attr('src','/img/flags/32/'+countryCode+'.png');
+			    $("#__countryCode").html(mobileCode);
+			    console.log(' updating:' + mobileCode);
+			    $("input[name=mobileNumberCountryCode]").val(mobileCode);
+			    $('#intlTelInputDropdown').addClass('hidden');
+			}
+		</script>
+	</div>
+	
+	
+
+</body>
+</html>

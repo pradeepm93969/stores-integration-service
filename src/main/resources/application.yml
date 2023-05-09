@@ -1,0 +1,91 @@
+server:
+  port: 8082
+  error:
+    include-stacktrace: never
+#  ssl:
+#    enabled: true
+#    key-store-type: PKCS12
+#    key-store: classpath:keystore/sdvfsw.pfx
+#    key-store-password: Petshop@135
+#    key-alias: 71ed54ab748f4def88ffa69d9b1e01da
+    
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/sis?enabledTLSProtocols=TLSv1.2
+    username: sis
+    password: G0l1@2022
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      pool-name: app
+      maximum-pool-size: 25
+      minimum-idle: 5
+      max-lifetime: 1800000
+      idle-timeout: 600000
+      connection-timeout: 60000
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  mvc:
+    format:
+       date-time: yyyy-MM-dd HH:mm
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: no-reply@goli.pk
+    password: aatqfvalstyagumb
+    properties:
+      mail: 
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  redis:
+    connect-timeout: 3s
+    host: localhost
+    port: 6379
+    timeout: 2s
+    database: 0
+  cache:
+    type: redis
+    redis:
+      cache-null-values: false
+      time-to-live: "10m"
+      use-key-prefix: true
+      key-prefix: "SIS"
+  servlet:
+    multipart:
+      max-file-size: 1MB
+      max-request-size: 1MB
+        
+        
+            
+#logging:
+ # level:
+  #  root: DEBUG
+
+custom:
+  schedulers:
+    enabled: true
+
+springdoc:
+  swagger-ui:
+    tagsSorter: alpha
+    operationsSorter: alpha
+
+resilience4j:
+    bulkhead:
+        configs:
+            default:
+                maxConcurrentCalls: 100
+                maxWaitDuration: 0
+        instances:
+            authBulkhead:
+                baseConfig: default
+            resetPasswordBulkhead:
+                baseConfig: default
+            verifyAuthTokenBulkhead:
+                baseConfig: default
+

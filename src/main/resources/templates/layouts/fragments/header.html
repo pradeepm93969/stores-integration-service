@@ -1,0 +1,52 @@
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	</head>
+	<body>
+		<div th:fragment="header-non-logged-in">
+		 	<header> 
+				<div class="bg-primary-500 text-white shadow-2xl p-1 px-10">
+    				<span class="text-md lg:text-lg font-semibold">Goli - Store Integrations Service</span>
+				</div>
+			</header>
+		</div>
+		
+		<div th:fragment="header-logged-in">
+		 	<header>
+		 		<div class="bg-primary-500 text-white shadow-2xl p-1 px-14 flex flex-row items-center mx-w-fit">
+    				<span class="text-md lg:text-lg font-semibold hidden md:flex">Goli - Store Integrations Service</span>
+    				<div class="ml-auto text-md lg:text-lg font-semibold flex">Welcome&nbsp;<span id="headerFirstName"></span>
+    				<div class="mr-0 inline-block relative ml-3">
+	    				<img id="headerAvatar" class="rounded-full h-7 cursor-pointer" src="img/profileAvatars/Male-1.jpg" onClick="$('#headerProfileDropdown').toggleClass('hidden')"></img>
+				        <ul id="headerProfileDropdown" class="hidden absolute bg-slate-50 text-slate-900 shadow-lg p-2 text-md right-0.5 top-7 w-40 z-30">
+				            <li><a class="rounded cursor-pointer text-sm bg-gray-200 hover:bg-gray-400 py-2 px-4 mb-1 block whitespace-no-wrap" onclick="loadPage('/user-management/profileSettings');">My Settings</a></li>
+				            <li><a class="rounded cursor-pointer text-sm bg-gray-200 hover:bg-gray-400 py-2 px-4 mb-1 block whitespace-no-wrap" onclick="loadPage('/user-management/changePassword');">Change Password</a></li>
+				            <li><hr></li>
+				            <li><a class="rounded cursor-pointer text-sm bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onclick="logout()">Logout</a></li>						            
+				        </ul>
+    				</div>
+				</div>
+			</header>
+			<script>
+				$(document).ready(function() {
+					if (localStorage.getItem('firstName') == 'undefined') {
+						setTimeout(function(){
+						    $('#headerAvatar').attr('src','img/profileAvatars/'+localStorage.getItem('avatar'));
+							$('#headerFirstName').text(localStorage.getItem('firstName'));
+						}, 2000);
+					} else {
+						$('#headerAvatar').attr('src','img/profileAvatars/'+localStorage.getItem('avatar'));
+						$('#headerFirstName').text(localStorage.getItem('firstName'));
+					}
+				});
+				$(document).click(function(e) {
+				    if (!$(e.target).closest('#headerProfileDropdown').length && 
+				    		!$(e.target).closest('#headerAvatar').length) {
+				    	$('#headerProfileDropdown').addClass('hidden');
+				    }
+				});
+			</script>
+		</div>
+		
+	</body>
+</html>
